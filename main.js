@@ -1,34 +1,77 @@
-var row = 0;
-var col = 0;
-var path = [];
-var letters = [];
-var grid = [
+"use strict";
+const path = [];
+const letters = [];
+const grid = [
     ['>', '-', '-', '-', 'A', '-', '@', '-', '+'],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|'],
     ['+', '-', 'U', '-', '+', ' ', ' ', ' ', 'C'],
     ['|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|'],
     ['s', ' ', ' ', ' ', 'C', '-', '-', '-', '+'],
 ];
-grid.forEach(function (row) {
+let row = 0;
+let col = 0;
+grid.forEach((arr, index) => {
+    const startPosition = arr.indexOf('>');
+    if (startPosition !== -1) {
+        row = index;
+        col = startPosition;
+    }
+});
+console.log(row, col);
+let previousCharacter = [row, col];
+grid.forEach((row) => {
     console.log(row.join(''));
-    // row.forEach((el) => {
-    //   if (el !== ' ') {
-    //     path.push(el);
-    //     if (/[A-Z]/.test(el)) {
-    //       letters.push(el);
-    //     }
-    //   }
-    // });
 });
 while (grid[row][col] !== 's') {
-    var currentEl = grid[row][col];
-    path.push(currentEl);
-    if (/[A-Z]/.test(currentEl)) {
-        letters.push(currentEl);
+    const currentCharacter = grid[row][col];
+    path.push(currentCharacter);
+    if (/[A-Z]/.test(currentCharacter)) {
+        letters.push(currentCharacter);
     }
-    // if(currentEl === '+'){
-    //   if(row >=)
+    debugger;
+    if (currentCharacter === '+') {
+        row++;
+    }
+    if (grid[row][col + 1] !== ' ' && col !== grid[row].length - 1) {
+        col++;
+    }
+    if (col === grid[row].length - 1 && row !== grid.length - 1) {
+        row++;
+    }
+    // if (grid[row + 1] !== undefined && grid[row + 1][col] !== ' ' && previousCharacter[0] == row && previousCharacter[1] !== col + 1) {
+    //   previousCharacter = [row, col];
+    //   row++;
+    // } else if (grid[row][col + 1] !== undefined && grid[row][col + 1] !== ' ' && previousCharacter[0] == row && previousCharacter[1] !== col + 1) {
+    //   previousCharacter = [row, col];
+    //   col++;
+    // } else if (grid[row - 1] !== undefined && grid[row - 1][col] !== ' ' && previousCharacter[0] !== row - 1 && previousCharacter[1] == col) {
+    //   previousCharacter = [row, col];
+    //   row--;
+    // } else if (grid[row][col - 1] !== undefined && grid[row][col - 1] !== ' ' && previousCharacter[0] == row && previousCharacter[1] !== col - 1) {
+    //   previousCharacter = [row, col];
+    //   col--;
     // }
 }
-// console.log('PATH:', path.join(''));
-// console.log('LETTERS:', letters.join(''));
+// if (currentCharacter === '+') {
+//   if (grid[row + 1] !== undefined && grid[row + 1][col] !== ' ' && previousCharacter !== grid[row + 1][col]) {
+//     previousCharacter = grid[row][col];
+//     row++;
+//   } else if (grid[row][col + 1] !== undefined && grid[row][col + 1] !== ' ' && previousCharacter !== grid[row][col + 1]) {
+//     previousCharacter = grid[row][col];
+//     col++;
+//   } else if (grid[row - 1] !== undefined && grid[row - 1][col] !== ' ' && previousCharacter !== grid[row - 1][col]) {
+//     previousCharacter = grid[row][col];
+//     row--;
+//   } else if (grid[row][col - 1] !== undefined && grid[row][col - 1] !== ' ' && previousCharacter !== grid[row][col - 1]) {
+//     previousCharacter = grid[row][col];
+//     col--;
+//   }
+// }
+// if (currentCharacter !== '+' && col !== grid[0].length - 1) {
+//   previousCharacter = grid[row][col];
+//   col++;
+// }
+// if (currentCharacter !== '+' && row !== grid.length - 1 && col === grid[0].length - 1 && grid[row][col] !== '+') {
+//   previousCharacter = grid[row][col];
+//   row++;
+// }
